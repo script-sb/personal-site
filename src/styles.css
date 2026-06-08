@@ -83,6 +83,16 @@ a {
   text-decoration: none;
 }
 
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
 main {
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
@@ -117,6 +127,7 @@ main {
 .panel-topline,
 .text-link,
 .contact-card a,
+.contact-card button,
 .contact-card span {
   display: flex;
   align-items: center;
@@ -611,6 +622,7 @@ h1 {
 }
 
 .contact-card a,
+.contact-card button,
 .contact-card span {
   gap: 10px;
   min-height: 48px;
@@ -622,7 +634,94 @@ h1 {
   overflow-wrap: anywhere;
 }
 
-.contact-card a:hover {
+.contact-card button {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.contact-card a:hover,
+.contact-card button:hover {
+  border-color: var(--line-hot);
+}
+
+.resume-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(90deg, rgba(43, 93, 255, 0.18), transparent 34%, rgba(123, 76, 255, 0.18)),
+    rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.resume-gate-card {
+  position: relative;
+  display: grid;
+  width: min(100%, 430px);
+  gap: 14px;
+  border: 1px solid var(--line-hot);
+  border-radius: 8px;
+  padding: 28px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+    rgba(8, 10, 10, 0.94);
+  box-shadow: 0 28px 100px rgba(0, 0, 0, 0.72);
+}
+
+.resume-gate-card h2 {
+  margin-bottom: 6px;
+  color: #ffffff;
+  font-size: 28px;
+  line-height: 1.16;
+}
+
+.resume-gate-card label {
+  color: #dfe8df;
+  font-weight: 800;
+}
+
+.resume-gate-card input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 0 14px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.055);
+  outline: none;
+}
+
+.resume-gate-card input:focus {
+  border-color: var(--lime);
+  box-shadow: 0 0 0 3px rgba(200, 255, 34, 0.14);
+}
+
+.resume-gate-error {
+  margin: 0;
+  color: #ff6670;
+  font-weight: 800;
+}
+
+.resume-gate-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #f4f6f0;
+  background: rgba(255, 255, 255, 0.055);
+  font-size: 24px;
+  line-height: 1;
+}
+
+.resume-gate-close:hover {
   border-color: var(--line-hot);
 }
 

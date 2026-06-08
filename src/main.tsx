@@ -1,4 +1,4 @@
-import { StrictMode, type ReactNode } from "react";
+import { StrictMode, useState, type FormEvent, type ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import {
   ArrowUpRight,
@@ -188,6 +188,34 @@ const cases: IconCard[] = [
 ];
 
 function App() {
+  const [isResumeGateOpen, setIsResumeGateOpen] = useState(false);
+  const [resumeCode, setResumeCode] = useState("");
+  const [resumeError, setResumeError] = useState("");
+
+  const openResumeGate = () => {
+    setResumeCode("");
+    setResumeError("");
+    setIsResumeGateOpen(true);
+  };
+
+  const closeResumeGate = () => {
+    setIsResumeGateOpen(false);
+    setResumeCode("");
+    setResumeError("");
+  };
+
+  const verifyResumeCode = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (resumeCode.trim() === "Joker") {
+      window.open("resume.pdf", "_blank", "noopener,noreferrer");
+      closeResumeGate();
+      return;
+    }
+
+    setResumeError("验证码错误，请重新输入。");
+  };
+
   return (
     <main>
       <header className="nav">
@@ -228,9 +256,9 @@ function App() {
               <a className="primary-button" href="#contact">
                 联系沟通 <ChevronRight size={18} />
               </a>
-              <a className="secondary-button" href="resume.pdf" target="_blank" rel="noreferrer">
-                获取脱敏简历 <Download size={18} />
-              </a>
+              <button className="secondary-button" type="button" onClick={openResumeGate}>
+                获取真实简历 <Download size={18} />
+              </button>
             </div>
           </div>
           <aside className="hero-panel" aria-label="关键成果">
@@ -360,12 +388,40 @@ function App() {
             <MapPin size={20} />
             上海 / 北京 / 杭州 / 深圳
           </span>
-          <a href="resume.pdf" target="_blank" rel="noreferrer">
+          <button type="button" onClick={openResumeGate}>
             <Download size={20} />
-            获取脱敏简历
-          </a>
+            获取真实简历
+          </button>
         </div>
       </section>
+
+      {isResumeGateOpen && (
+        <div className="resume-gate" role="dialog" aria-modal="true" aria-labelledby="resume-gate-title">
+          <form className="resume-gate-card" onSubmit={verifyResumeCode}>
+            <button className="resume-gate-close" type="button" onClick={closeResumeGate} aria-label="关闭">
+              ×
+            </button>
+            <p className="eyebrow">Resume Access</p>
+            <h2 id="resume-gate-title">输入验证码获取真实简历</h2>
+            <label htmlFor="resume-code">验证码</label>
+            <input
+              id="resume-code"
+              autoFocus
+              value={resumeCode}
+              onChange={(event) => {
+                setResumeCode(event.target.value);
+                setResumeError("");
+              }}
+              placeholder="请输入验证码"
+              type="text"
+            />
+            {resumeError && <p className="resume-gate-error">{resumeError}</p>}
+            <button className="primary-button" type="submit">
+              验证并打开 <Download size={18} />
+            </button>
+          </form>
+        </div>
+      )}
     </main>
   );
 }
