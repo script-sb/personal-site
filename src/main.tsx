@@ -5,23 +5,25 @@ import {
   BadgeCheck,
   BrainCircuit,
   BriefcaseBusiness,
-  CalendarCheck,
   ChartNoAxesCombined,
   CheckCircle2,
   ChevronRight,
   Download,
-  Layers3,
   Mail,
   MapPin,
   Network,
   Rocket,
   ShieldCheck,
-  Sparkles,
   Target,
   Trophy,
-  UsersRound,
   Workflow,
 } from "lucide-react";
+import workAi from "./assets/work-ai.jpg";
+import workBrand from "./assets/work-brand.jpg";
+import workPortfolio from "./assets/work-portfolio.jpg";
+import workProfile from "./assets/work-profile.jpg";
+import workShowcase from "./assets/work-showcase.jpg";
+import workSite from "./assets/work-site.jpg";
 import "./styles.css";
 
 type IconCard = {
@@ -43,6 +45,12 @@ type Experience = {
   summary: string;
   points: string[];
   result: string;
+};
+
+type PortfolioItem = {
+  image: string;
+  title: string;
+  tag: string;
 };
 
 const metrics = [
@@ -164,27 +172,13 @@ const experiences: Experience[] = [
   },
 ];
 
-const cases: IconCard[] = [
-  {
-    icon: <CalendarCheck />,
-    title: "全周期版本交付",
-    text: "用需求评估、敏捷排期、N+2 转测、周迭代和版本日历，把复杂内容生产转成可跟踪交付系统。",
-  },
-  {
-    icon: <Layers3 />,
-    title: "美术管线与资源标准化",
-    text: "建立资源版本管理、资产标准流程和美术全生命周期管理规范，支撑多管线并行生产。",
-  },
-  {
-    icon: <UsersRound />,
-    title: "驻场与供应商协作",
-    text: "从供应商筛选到结算系统打通外部产能链路，形成可复制的驻场协作和外包 SOP。",
-  },
-  {
-    icon: <Sparkles />,
-    title: "AI 美术流程落地",
-    text: "围绕需求定标、资源归档、预研方案和团队赋能，推动 AI 能力进入规范化量产环境。",
-  },
+const portfolioItems: PortfolioItem[] = [
+  { image: workPortfolio, title: "Portfolio Landing", tag: "Personal Site" },
+  { image: workSite, title: "Dark Interface", tag: "Web Structure" },
+  { image: workAi, title: "AI Visual System", tag: "Workflow" },
+  { image: workBrand, title: "Brand Statement", tag: "Identity" },
+  { image: workProfile, title: "Profile Module", tag: "Resume" },
+  { image: workShowcase, title: "Showcase Grid", tag: "Selected Work" },
 ];
 
 function App() {
@@ -351,19 +345,21 @@ function App() {
       <section className="section" id="cases">
         <div className="section-heading split">
           <div>
-            <p>Selected Cases</p>
-            <h2>可迁移到新团队的管理抓手</h2>
+            <p>Portfolio</p>
+            <h2>Selected work and systems</h2>
           </div>
           <a className="text-link" href="#contact">
             预约进一步沟通 <ArrowUpRight size={18} />
           </a>
         </div>
-        <div className="case-grid">
-          {cases.map((item) => (
-            <article className="case-card" key={item.title}>
-              <div className="icon">{item.icon}</div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+        <div className="portfolio-grid">
+          {portfolioItems.map((item) => (
+            <article className="portfolio-card" key={item.title}>
+              <img src={item.image} alt="" />
+              <div>
+                <span>{item.tag}</span>
+                <h3>{item.title}</h3>
+              </div>
             </article>
           ))}
         </div>
